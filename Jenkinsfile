@@ -19,21 +19,21 @@ pipeline
         stage('continousdeployment')
         {
             steps{
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '16a33b55-c049-433e-b885-6d661086cbe1', path: '', url: 'http://172.31.11.108:8080')], contextPath: 'test', war: '**/*.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '18e38879-a883-40a3-8276-8103a0e6d18d', path: '', url: 'http://172.31.0.190:8080')], contextPath: 'testapp', war: '**/*.war'
             }
         }
         stage('continousTesting')
         {
             steps{
                 git 'https://github.com/IntelliqDevops/FunctionalTesting.git'
-                sh 'java -jar /home/ubuntu/.jenkins/workspace/declarativepipeline3/testing.jar'
+                sh 'java -jar /home/ubuntu/.jenkins/workspace/dock/testing.jar'
             }
         }
         stage('continousDelivery')
         {
             steps{
                 input message:'waiting for approval from the DM',submitter:'sahana'
-                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '07266d3a-1612-4c4d-b84a-9da1fb868748', path: '', url: 'http://172.31.13.125:8080')], contextPath: 'prod', war: '**/*.war'
+                deploy adapters: [tomcat9(alternativeDeploymentContext: '', credentialsId: '64777c23-8523-45ec-afcb-2ec08b6d2d19', path: '', url: 'http://172.31.14.111:8080')], contextPath: 'prodapp', war: '**/*.war'
             }
         }
     }
